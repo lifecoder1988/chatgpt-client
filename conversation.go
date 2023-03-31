@@ -141,7 +141,7 @@ func (c *conversation) Ask(question []byte, cfg ...*ConversationAskConfig) (answ
 		return nil, fmt.Errorf("failed to build prompt: %v", err)
 	}
 
-	logger.Infof("BuildPrompt result : %v",prompt)
+	logger.Infof("BuildPrompt result : %s",prompt)
 
 
 	messages, err := c.BuildMessages()
@@ -149,7 +149,7 @@ func (c *conversation) Ask(question []byte, cfg ...*ConversationAskConfig) (answ
 		return nil, fmt.Errorf("failed to build messages: %v", err)
 	}
 
-	logger.Infof("BuildMessages result : %v",messages)
+	logger.Infof("BuildMessages result : %s",messages)
 
 	answer, err = c.client.Ask(&AskConfig{
 		Model:    c.cfg.Model,
