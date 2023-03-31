@@ -141,10 +141,15 @@ func (c *conversation) Ask(question []byte, cfg ...*ConversationAskConfig) (answ
 		return nil, fmt.Errorf("failed to build prompt: %v", err)
 	}
 
+	logger.Infof("BuildPrompt result : %v",prompt)
+
+
 	messages, err := c.BuildMessages()
 	if err != nil {
 		return nil, fmt.Errorf("failed to build messages: %v", err)
 	}
+
+	logger.Infof("BuildMessages result : %v",messages)
 
 	answer, err = c.client.Ask(&AskConfig{
 		Model:    c.cfg.Model,
@@ -154,6 +159,8 @@ func (c *conversation) Ask(question []byte, cfg ...*ConversationAskConfig) (answ
 		MaxRequestResponseTokens: int(c.cfg.MaxRequestResponseTokens),
 	})
 	if err != nil {
+		c.messagesMap.Set(cfgX.ID, false)
+		c.messages.Pop()
 		return nil, fmt.Errorf("failed to ask: %v", err)
 	}
 
