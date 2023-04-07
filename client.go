@@ -117,6 +117,7 @@ func (c *client) Ask(cfg *AskConfig) (answer []byte, err error) {
 			Model:     cfg.Model,
 			Messages:  messages,
 			MaxTokens: maxTokens,
+			Temperature: 0.1,
 		})
 		if err != nil {
 			return nil, err
