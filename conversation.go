@@ -159,7 +159,7 @@ func (c *conversation) Ask(question []byte, cfg ...*ConversationAskConfig) (answ
 		MaxRequestResponseTokens: int(c.cfg.MaxRequestResponseTokens),
 	})
 	if err != nil {
-		c.messagesMap.Set(cfgX.ID, false)
+		c.messagesMap.Del(cfgX.ID)
 		c.messages.Pop()
 		return nil, fmt.Errorf("failed to ask: %v", err)
 	}
